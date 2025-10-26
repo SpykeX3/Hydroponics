@@ -21,14 +21,42 @@ type lightConfigStr struct {
 	FinishTime string `json:"finish_time"`
 }
 
+func createDefaultConfig(configPath string) error {
+	defaultConfig := lightConfigStr{
+		StartTime:  "7h",
+		FinishTime: "22h",
+	}
+
+	file, err := os.Create(configPath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	return encoder.Encode(defaultConfig)
+}
+
 func getConfig() (*LightConfig, error) {
 	homedir, err := os.UserHomeDir()
 	if err != nil {
 		return nil, err
 	}
-	file, err := os.Open(path.Join(homedir, "light.config"))
+
+	configPath := path.Join(homedir, "light.config")
+	file, err := os.Open(configPath)
 	if err != nil {
-		return nil, err
+		if os.IsNotExist(err) {
+			if err := createDefaultConfig(configPath); err != nil {
+				return nil, err
+			}
+			file, err = os.Open(configPath)
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
 	}
 	defer file.Close()
 
