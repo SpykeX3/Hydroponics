@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="spyke@192.168.0.170:22" type="ssh/sftp" uuid="40e07d35-b248-4a90-b46a-0952e861cb01">
+        <config>
+          <option name="projectRootOnTarget" value="$USER_HOME$/2-light-control" />
+          <option name="serverName" value="spyke@192.168.0.170:22 password" />
+          <option name="useRsync" value="true" />
+        </config>
+        <ContributedStateBase type="GoLanguageRuntime">
+          <config />
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>

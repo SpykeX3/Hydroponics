@@ -1,0 +1,14 @@
+module 1-playground
+
+go 1.24
+
+require (
+	github.com/d2r2/go-i2c v0.0.0-20191123181816-73a8a799d6bc
+	periph.io/x/conn/v3 v3.7.2
+	periph.io/x/host/v3 v3.8.5
+)
+
+require (
+	github.com/d2r2/go-logger v0.0.0-20210606094344-60e9d1233e22 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+)
