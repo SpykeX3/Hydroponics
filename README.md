@@ -37,7 +37,6 @@ Hardware (as inferred from code)
 │   ├── db/database.go            # SQLite (modernc.org/sqlite) readings DB in $HOME/readings.db
 │   └── water-level-sensor/       # Grove Water Level sensor helper
 │       └── sensor.go
-├── LICENSE                       # GPLv3
 └── README.md
 ```
 
