@@ -20,7 +20,7 @@ func createDefaultConfig(configPath string) (*WaterConfig, error) {
 	defaultConfig := WaterConfig{
 		MaxAllowedLevelDrop:    100,
 		RefillIfBelowLevel:     75,
-		RefillTimeMilliseconds: 2000,
+		RefillTimeMilliseconds: 4000,
 		EmptyIfAboveLevel:      55,
 		EmptyTimeMilliseconds:  5000,
 		FillForSeconds:         30,

@@ -81,10 +81,13 @@ func main() {
 
 	state, previousState := calculateDesiredState(db, cfg)
 	if state != previousState {
+		log.Printf("Changing state from %s to %s", previousState, state)
 		err = db.InsertState(state)
 		if err != nil {
 			log.Panicln(err)
 		}
+	} else {
+		log.Println("State remains ", state)
 	}
 
 	switch state {
@@ -102,7 +105,6 @@ func main() {
 				log.Panicln(err)
 			}
 		}
-
 	}
 
 	log.Println("Done")
@@ -130,6 +132,7 @@ func empty(cfg *config.WaterConfig) error {
 
 func calculateDesiredState(stateDB *db.StateDB, cfg *config.WaterConfig) (db.State, db.State) {
 	if stateDB.IsStateEmpty() {
+		log.Println("State database is empty")
 		return db.StateFill, db.StateEmpty
 	}
 	lastState, timestamp, err := stateDB.GetLastState()
@@ -151,14 +154,14 @@ func calculateDesiredState(stateDB *db.StateDB, cfg *config.WaterConfig) (db.Sta
 }
 
 func refill(cfg *config.WaterConfig) error {
-	log.Println("Turning on the pump.")
+	log.Println("Turning on the refill pump.")
 	err := pumpInPin.Out(gpio.High)
 	if err != nil {
 		pumpInPin.Out(gpio.Low)
 		return err
 	}
 	time.Sleep(time.Duration(cfg.RefillTimeMilliseconds) * time.Millisecond)
-	log.Println("Turning off the pump.")
+	log.Println("Turning off the refill pump.")
 	err = pumpInPin.Out(gpio.Low)
 	if err != nil {
 		return err
